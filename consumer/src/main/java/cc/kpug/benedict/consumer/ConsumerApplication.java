@@ -1,4 +1,4 @@
-package cc.kpug.benedict.provider;
+package cc.kpug.benedict.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -10,14 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by before30 on 08/03/2018.
  */
+
 @SpringBootApplication
 @RestController
 @Slf4j
-public class ProviderApplication implements CommandLineRunner {
+public class ConsumerApplication implements CommandLineRunner {
 
     @GetMapping("/hello")
     public String hello() {
-        return "provider";
+        return "consumer";
     }
 
     @Override
@@ -26,6 +27,6 @@ public class ProviderApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ProviderApplication.class, args);
+        SpringApplication.run(ConsumerApplication.class, args);
     }
 }
