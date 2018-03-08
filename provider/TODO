@@ -10,3 +10,38 @@ json
 https://developer.github.com/v4/
 
 graphql 필요함
+
+
+# Type queries into this side of the screen, and you will
+# see intelligent typeaheads aware of the current GraphQL type schema,
+# live syntax, and validation errors highlighted within the text.
+
+# We'll get you started with a simple query showing your username!
+query {
+  search(query: "language:java stars:>1000", type: REPOSITORY, first: 10) {
+    repositoryCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    edges {
+      node {
+        ... on Repository {
+          name
+          defaultBranchRef {
+            id
+          }
+
+          id
+          sshUrl
+          url
+
+        }
+      }
+    }
+  }
+}
+
+
