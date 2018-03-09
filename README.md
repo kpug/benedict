@@ -1,8 +1,6 @@
 # Benedict
 
 ## About Benedict
-![EggBenedict](./images/eggs-benedict.jpg)
-![BenedictCumberbatch](./images/benedictcumberbatch.jpg)
 
 `Bene` + `dict`
 
