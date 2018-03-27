@@ -2,6 +2,7 @@ package cc.kpug.benedict.consumer.runner;
 
 import cc.kpug.benedict.consumer.services.GithubService;
 import cc.kpug.benedict.consumer.utils.FileUtils;
+import cc.kpug.benedict.consumer.utils.ParserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,9 @@ import java.nio.file.Paths;
 
 /**
  * @author Lawrence
- * @version 0.0.1
  * @note
  * @since 2018. 3. 11.
+ * @version 0.0.1
  */
 @Slf4j
 @Component
@@ -34,11 +35,13 @@ public class FileReadRunner {
             log.info("Do you want to run Consumer without filepath, idiot?");
             return;
         } else {
-            Flux<String> lineFlux = FileUtils.fromPath(Paths.get(filePath));
+            final Flux<String> lineFlux = FileUtils.fromPath(Paths.get(filePath));
             lineFlux.filter(urlValidator::isValid)
                     .map(url -> githubService.getFileRawData(url))
-                    .doOnNext(line ->
-                            log.info("{}", line)
+                    .map(ParserUtils::extractMethodSignature)
+                    .map(ParserUtils::extractMethodName)
+                    .doOnNext(names ->
+                            log.info("{}", String.join("\n", names))
                     ).blockLast();
         }
     }

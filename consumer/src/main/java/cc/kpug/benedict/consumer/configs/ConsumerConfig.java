@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Lawrence
  * @note
  * @since 2018. 3. 11.
+ * @version 0.0.1
  */
 @Configuration
 public class ConsumerConfig {

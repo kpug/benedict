@@ -34,7 +34,6 @@ public class ParserUtilsTest {
             "        }\n" +
             "    }\n" +
             "    public static int total(int n, int[] v, int i) {\n" +
-            "    public static int total(int n, int[] v, int i) {\n" +
             "//        System.out.println(solve(100));\n" +
             "        int[] coins = {1, 5, 10};\n" +
             "        System.out.println(total(100,coins, 0));\n" +
@@ -43,7 +42,15 @@ public class ParserUtilsTest {
             "}";
 
     @Test
-    public void test(){
-        List<String> linesMethodDefined = ParserUtils.getLinesMethodDefined(raw);
+    public void test_extractMethodSignatureFromRawContent(){
+        List<String> listOfMethodSignature = ParserUtils.extractMethodSignature(raw);
+        listOfMethodSignature.stream().forEach(System.out::println);
+    }
+
+    @Test
+    public void test_extractMethodNameFromRawContent(){
+        List<String> listOfMethodSignature = ParserUtils.extractMethodSignature(raw);
+        List<String> listOfMethodNames= ParserUtils.extractMethodName(listOfMethodSignature);
+        listOfMethodNames.stream().forEach(System.out::println);
     }
 }

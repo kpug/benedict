@@ -5,9 +5,9 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Lawrence
- * @version 0.0.1
  * @note
  * @since 2018. 3. 11.
+ * @version 0.0.1
  */
 @Service
 public class GithubServiceImpl implements GithubService {
