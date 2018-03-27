@@ -1,5 +1,6 @@
 package cc.kpug.benedict.provider;
 
+import cc.kpug.benedict.provider.service.JavaFileExtractor;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,8 @@ public class ProviderApplication implements CommandLineRunner {
             repositoryInfos.add(gitRepositoryInfo);
             log.info("{}", gitRepositoryInfo.getDownloadUrl());
         }
+
+        repositoryInfos.forEach(JavaFileExtractor::extract);
     }
 
     public static void main(String[] args) {
