@@ -2,7 +2,7 @@ package cc.kpug.benedict.provider.service;
 
 import static java.util.stream.Collectors.toList;
 
-import cc.kpug.benedict.provider.GitRepositoryInfo;
+import cc.kpug.benedict.provider.domain.GitRepositoryInfo;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
