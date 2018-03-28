@@ -4,6 +4,8 @@ import static java.util.stream.Collectors.toList;
 
 import cc.kpug.benedict.provider.service.JavaFileExtractor;
 import com.fasterxml.jackson.databind.JsonNode;
+import java.io.File;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -28,10 +30,13 @@ public class ProviderApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
 
+        final File output = new File("__output.tmp");
+        final PrintWriter writer = new PrintWriter(output);
+
         JsonNode node = restTemplate.getForObject("https://api.github.com/search/repositories?q=language:java&sort=stars&order=desc", JsonNode.class);
         JsonNode itemArray = node.get("items");
         ArrayList<GitRepositoryInfo> repositoryInfos = new ArrayList<>();
-        for (int i=0; i<itemArray.size(); i++) {
+        for (int i=0; i<2; i++) {
             GitRepositoryInfo gitRepositoryInfo = new GitRepositoryInfo();
             gitRepositoryInfo.setDefaultBranch(itemArray.get(i).get("default_branch").asText());
             gitRepositoryInfo.setFullName(itemArray.get(i).get("full_name").asText());
@@ -39,14 +44,13 @@ public class ProviderApplication implements CommandLineRunner {
 
             repositoryInfos.add(gitRepositoryInfo);
             log.info("{}", gitRepositoryInfo.getDownloadUrl());
+
+            JavaFileExtractor.extract(gitRepositoryInfo)
+                .forEach(writer::println);
         }
 
-        final List<String> paths = repositoryInfos.stream()
-            .map(JavaFileExtractor::extract)
-            .flatMap(Collection::stream)
-            .collect(toList());
-
-        Files.write(Paths.get("output"), paths, Charset.forName("UTF-8"));
+        writer.close();
+        output.renameTo(new File("output"));
 
     }
 

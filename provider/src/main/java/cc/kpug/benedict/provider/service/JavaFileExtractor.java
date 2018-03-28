@@ -41,13 +41,19 @@ public class JavaFileExtractor {
             throw new RuntimeException("Something wrong due to open the given url. [" + info.getDownloadUrl() + "]", e);
         }
 
-        return stream.map(ZipEntry::getName)
+        final List<String> result = stream.map(ZipEntry::getName)
             .map(v -> v.substring(v.indexOf(File.separator)))
-            .filter(v -> !v.startsWith("/src/test/java"))
+            .filter(v -> !v.contains("/src/test/java"))
             .filter(v -> v.endsWith(".java"))
             .filter(v -> !v.endsWith("/package-info.java"))
+            .filter(v -> !v.endsWith("Test.java"))
             .map(v -> GIT_CONTENT_PATH + "/" + info.getFullName() + "/" + info.getDefaultBranch() + v)
+            .peek(log::info)
             .collect(toList());
+
+        log.info("Done with requested info: {}", info);
+
+        return result;
     }
 
 }
