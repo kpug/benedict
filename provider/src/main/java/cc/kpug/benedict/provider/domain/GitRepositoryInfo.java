@@ -1,5 +1,7 @@
-package cc.kpug.benedict.provider;
+package cc.kpug.benedict.provider.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,12 +12,16 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GitRepositoryInfo {
 
+	@JsonProperty("full_name")
 	private String fullName;
 
+	@JsonProperty("default_branch")
 	private String defaultBranch;
 
+	@JsonProperty("html_url")
 	private String htmlUrl;
 
 	public String getDownloadUrl() {
