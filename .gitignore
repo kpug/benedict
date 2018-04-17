@@ -3,7 +3,5 @@
 *.iml
 *.class
 
-
-output
-build
-out
+**/out
+**/build

@@ -1,7 +1,5 @@
 apply plugin: 'org.springframework.boot'
 
 dependencies {
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.2.3'
-    compile group: 'org.springframework.data', name: 'spring-data-jpa'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

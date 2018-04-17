@@ -1,11 +1,12 @@
 server:
   port: 8082
+
 spring:
   application:
     name: benedict-consumer
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mysql://210.89.181.20:3306/zaggle
+    url: jdbc:mariadb://210.89.181.20:3306/zaggle
     username: zaggle_test
     password: zg123456
     hikari.connection-timeout: 60000
@@ -14,4 +15,4 @@ spring:
 file:
   path: output
 
-logging.level.org.springframework: debug
+# logging.level.org.springframework: debug
